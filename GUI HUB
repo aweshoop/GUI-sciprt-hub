@@ -1,0 +1,152 @@
+local player = game.Players.LocalPlayer
+
+-- ฟังก์ชันสร้าง GUI
+local function createGUI()
+    -- ลบ GUI เดิมถ้ามีอยู่
+    if player.PlayerGui:FindFirstChild("CustomGUI") then
+        player.PlayerGui:FindFirstChild("CustomGUI"):Destroy()
+    end
+
+    -- สร้าง GUI
+    local screenGui = Instance.new("ScreenGui", player.PlayerGui)
+    screenGui.Name = "CustomGUI"
+    local frame = Instance.new("Frame", screenGui)
+    local loadVoidButton = Instance.new("TextButton", frame)
+    local loadTrashButton = Instance.new("TextButton", frame)
+    local loadStarGlitcherButton = Instance.new("TextButton", frame) -- ปุ่มใหม่
+    local loadSungJinWooButton = Instance.new("TextButton", frame) -- ปุ่ม Sung Jin Woo ใหม่
+    local minimizeButton = Instance.new("TextButton", frame)
+    local closeButton = Instance.new("TextButton", frame)
+
+    -- ตั้งค่า Frame (สีแดง)
+    frame.Size = UDim2.new(0, 250, 0, 290) -- ขยายขนาดเพิ่มขึ้นเพื่อรองรับปุ่มใหม่
+    frame.Position = UDim2.new(0.5, -125, 0.35, 0)
+    frame.BackgroundColor3 = Color3.fromRGB(170, 0, 0)
+    frame.Active = true  -- ทำให้ Frame รับการโต้ตอบ
+    frame.Draggable = true  -- ทำให้ Frame สามารถลากได้
+
+    -- ตั้งค่าปุ่มโหลด Void Garou
+    loadVoidButton.Size = UDim2.new(0, 200, 0, 40)
+    loadVoidButton.Position = UDim2.new(0.5, -100, 0.20, 0)
+    loadVoidButton.Text = "Load Void Garou"
+    loadVoidButton.BackgroundColor3 = Color3.fromRGB(140, 0, 0)
+    loadVoidButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+    loadVoidButton.Parent = frame
+
+    -- ตั้งค่าปุ่มโหลด Trash Can Man
+    loadTrashButton.Size = UDim2.new(0, 200, 0, 40)
+    loadTrashButton.Position = UDim2.new(0.5, -100, 0.40, 0)
+    loadTrashButton.Text = "Load Trash Can Man"
+    loadTrashButton.BackgroundColor3 = Color3.fromRGB(140, 0, 0)
+    loadTrashButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+    loadTrashButton.Parent = frame
+
+    -- ตั้งค่าปุ่มโหลด Star Glitcher
+    loadStarGlitcherButton.Size = UDim2.new(0, 200, 0, 40)
+    loadStarGlitcherButton.Position = UDim2.new(0.5, -100, 0.60, 0) -- ตำแหน่งใหม่
+    loadStarGlitcherButton.Text = "Star Glitcher"
+    loadStarGlitcherButton.BackgroundColor3 = Color3.fromRGB(140, 0, 0)
+    loadStarGlitcherButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+    loadStarGlitcherButton.Parent = frame
+
+    -- ตั้งค่าปุ่มโหลด Sung Jin Woo
+    loadSungJinWooButton.Size = UDim2.new(0, 200, 0, 40)
+    loadSungJinWooButton.Position = UDim2.new(0.5, -100, 0.80, 0) -- ตำแหน่งใหม่
+    loadSungJinWooButton.Text = "Sung Jin Woo"
+    loadSungJinWooButton.BackgroundColor3 = Color3.fromRGB(140, 0, 0)
+    loadSungJinWooButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+    loadSungJinWooButton.Parent = frame
+
+    -- ตั้งค่าปุ่มย่อขนาด
+    minimizeButton.Size = UDim2.new(0, 50, 0, 30)
+    minimizeButton.Position = UDim2.new(1, -60, 0, 5)
+    minimizeButton.Text = "-"
+    minimizeButton.BackgroundColor3 = Color3.fromRGB(120, 0, 0)
+    minimizeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+    minimizeButton.Parent = frame
+
+    -- ตั้งค่าปุ่มปิด
+    closeButton.Size = UDim2.new(0, 50, 0, 30)
+    closeButton.Position = UDim2.new(1, -110, 0, 5)
+    closeButton.Text = "X"
+    closeButton.BackgroundColor3 = Color3.fromRGB(200, 0, 0)
+    closeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+    closeButton.Parent = frame
+
+    -- ฟังก์ชันโหลด Void Garou
+    loadVoidButton.MouseButton1Click:Connect(function()
+        print("Loading Void Garou...")
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/yes1nt/yes/refs/heads/main/Void%20Reaper%20Obfuscated.txt"))()
+    end)
+
+    -- ฟังก์ชันโหลด Trash Can Man
+    loadTrashButton.MouseButton1Click:Connect(function()
+        print("Loading Trash Can Man...")
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/yes1nt/yes/refs/heads/main/Trashcan%20Man", true))()
+    end)
+
+    -- ฟังก์ชันโหลด Star Glitcher
+    loadStarGlitcherButton.MouseButton1Click:Connect(function()
+        print("Loading Star Glitcher...")
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Reapvitalized/TSB/refs/heads/main/SG_DEMO.lua"))()
+    end)
+
+    -- ฟังก์ชันโหลด Sung Jin Woo
+    loadSungJinWooButton.MouseButton1Click:Connect(function()
+        print("Loading Sung Jin Woo...")
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/hamletirl/sunjingwoo/refs/heads/main/sunjingwoo"))()
+    end)
+
+    -- ฟังก์ชันย่อขนาด
+    local isMinimized = false
+    minimizeButton.MouseButton1Click:Connect(function()
+        isMinimized = not isMinimized
+        frame.Size = isMinimized and UDim2.new(0, 250, 0, 40) or UDim2.new(0, 250, 0, 290)
+        loadVoidButton.Visible = not isMinimized
+        loadTrashButton.Visible = not isMinimized
+        loadStarGlitcherButton.Visible = not isMinimized
+        loadSungJinWooButton.Visible = not isMinimized
+    end)
+
+    -- ฟังก์ชันปิด GUI
+    closeButton.MouseButton1Click:Connect(function()
+        screenGui:Destroy()
+        spawnSmallButton() -- เรียกฟังก์ชันสร้างปุ่มวงกลมเล็ก
+    end)
+end
+
+-- ฟังก์ชันสร้างปุ่มวงกลมเล็ก
+function spawnSmallButton()
+    if player.PlayerGui:FindFirstChild("SmallButtonGUI") then
+        player.PlayerGui:FindFirstChild("SmallButtonGUI"):Destroy()
+    end
+
+    local smallGui = Instance.new("ScreenGui", player.PlayerGui)
+    smallGui.Name = "SmallButtonGUI"
+    local button = Instance.new("TextButton", smallGui)
+
+    -- ตั้งค่าปุ่มวงกลมเล็ก
+    button.Size = UDim2.new(0, 50, 0, 50)
+    button.Position = UDim2.new(0, 10, 0, 10) -- ปรับให้ปุ่มวงกลมเล็กอยู่ใกล้ๆ กับมุมซ้ายบน
+    button.Text = "GUI" -- เปลี่ยนข้อความจาก "+" เป็น "GUI"
+    button.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+    button.TextColor3 = Color3.fromRGB(255, 255, 255)
+    button.Font = Enum.Font.SourceSansBold
+    button.TextSize = 30
+    button.Parent = smallGui
+
+    -- ฟังก์ชันการกดปุ่มเพื่อเปิด GUI อีกครั้ง
+    button.MouseButton1Click:Connect(function()
+        createGUI()  -- สร้าง GUI ใหม่
+        smallGui:Destroy()  -- ลบปุ่มวงกลม
+    end)
+end
+
+-- เรียกใช้ฟังก์ชันสร้าง GUI
+createGUI()
+
+-- ตรวจจับการเกิดใหม่ และสร้าง GUI ใหม่
+player.CharacterAdded:Connect(function()
+    wait(1) -- ให้เวลาโหลดตัวละคร
+    createGUI() -- สร้าง GUI ใหม่เมื่อเกิดใหม่
+end)
