@@ -13,49 +13,49 @@ local function createGUI()
     local frame = Instance.new("Frame", screenGui)
     local loadVoidButton = Instance.new("TextButton", frame)
     local loadTrashButton = Instance.new("TextButton", frame)
-    local loadStarGlitcherButton = Instance.new("TextButton", frame) -- ปุ่มใหม่
-    local loadSungJinWooButton = Instance.new("TextButton", frame) -- ปุ่ม Sung Jin Woo ใหม่
+    local loadStarGlitcherButton = Instance.new("TextButton", frame)
+    local loadSungJinWooButton = Instance.new("TextButton", frame)
+    local loadYujiButton = Instance.new("TextButton", frame) -- ปุ่ม Yuji Script ใหม่
     local minimizeButton = Instance.new("TextButton", frame)
     local closeButton = Instance.new("TextButton", frame)
 
     -- ตั้งค่า Frame (สีแดง)
-    frame.Size = UDim2.new(0, 250, 0, 290) -- ขยายขนาดเพิ่มขึ้นเพื่อรองรับปุ่มใหม่
+    frame.Size = UDim2.new(0, 250, 0, 340) -- ขยายขนาดเพื่อรองรับปุ่มใหม่
     frame.Position = UDim2.new(0.5, -125, 0.35, 0)
     frame.BackgroundColor3 = Color3.fromRGB(170, 0, 0)
-    frame.Active = true  -- ทำให้ Frame รับการโต้ตอบ
-    frame.Draggable = true  -- ทำให้ Frame สามารถลากได้
+    frame.Active = true
+    frame.Draggable = true
 
-    -- ตั้งค่าปุ่มโหลด Void Garou
-    loadVoidButton.Size = UDim2.new(0, 200, 0, 40)
-    loadVoidButton.Position = UDim2.new(0.5, -100, 0.20, 0)
-    loadVoidButton.Text = "Load Void Garou"
-    loadVoidButton.BackgroundColor3 = Color3.fromRGB(140, 0, 0)
-    loadVoidButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-    loadVoidButton.Parent = frame
+    -- ตั้งค่าปุ่มโหลดต่างๆ
+    local buttons = {
+        {loadVoidButton, "Load Void Garou", "https://raw.githubusercontent.com/yes1nt/yes/refs/heads/main/Void%20Reaper%20Obfuscated.txt"},
+        {loadTrashButton, "Load Trash Can Man", "https://raw.githubusercontent.com/yes1nt/yes/refs/heads/main/Trashcan%20Man"},
+        {loadStarGlitcherButton, "Star Glitcher", "https://raw.githubusercontent.com/Reapvitalized/TSB/refs/heads/main/SG_DEMO.lua"},
+        {loadSungJinWooButton, "Sung Jin Woo", "https://raw.githubusercontent.com/hamletirl/sunjingwoo/refs/heads/main/sunjingwoo"},
+        {loadYujiButton, "Yuji Script", "https://raw.githubusercontent.com/Kenjihin69/Kenjihin69/refs/heads/main/Sigma%20v2%20vessel%20tp"} -- Yuji Script
+    }
 
-    -- ตั้งค่าปุ่มโหลด Trash Can Man
-    loadTrashButton.Size = UDim2.new(0, 200, 0, 40)
-    loadTrashButton.Position = UDim2.new(0.5, -100, 0.40, 0)
-    loadTrashButton.Text = "Load Trash Can Man"
-    loadTrashButton.BackgroundColor3 = Color3.fromRGB(140, 0, 0)
-    loadTrashButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-    loadTrashButton.Parent = frame
-
-    -- ตั้งค่าปุ่มโหลด Star Glitcher
-    loadStarGlitcherButton.Size = UDim2.new(0, 200, 0, 40)
-    loadStarGlitcherButton.Position = UDim2.new(0.5, -100, 0.60, 0) -- ตำแหน่งใหม่
-    loadStarGlitcherButton.Text = "Star Glitcher"
-    loadStarGlitcherButton.BackgroundColor3 = Color3.fromRGB(140, 0, 0)
-    loadStarGlitcherButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-    loadStarGlitcherButton.Parent = frame
-
-    -- ตั้งค่าปุ่มโหลด Sung Jin Woo
-    loadSungJinWooButton.Size = UDim2.new(0, 200, 0, 40)
-    loadSungJinWooButton.Position = UDim2.new(0.5, -100, 0.80, 0) -- ตำแหน่งใหม่
-    loadSungJinWooButton.Text = "Sung Jin Woo"
-    loadSungJinWooButton.BackgroundColor3 = Color3.fromRGB(140, 0, 0)
-    loadSungJinWooButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-    loadSungJinWooButton.Parent = frame
+    for i, data in ipairs(buttons) do
+        local button, text, url = unpack(data)
+        button.Size = UDim2.new(0, 200, 0, 40)
+        button.Position = UDim2.new(0.5, -100, 0.15 * i, 0)
+        button.Text = text
+        button.BackgroundColor3 = Color3.fromRGB(140, 0, 0)
+        button.TextColor3 = Color3.fromRGB(255, 255, 255)
+        button.Parent = frame
+        button.MouseButton1Click:Connect(function()
+            print("Loading " .. text .. "...")
+            if text == "Yuji Script" then
+                -- โหลด Yuji Script พร้อมตัวแปร getgenv()
+                getgenv().secret = false
+                getgenv().Dance = true
+                getgenv().fog = true
+                getgenv().infinitedash = false
+                getgenv().night = false
+            end
+            loadstring(game:HttpGet(url))()
+        end)
+    end
 
     -- ตั้งค่าปุ่มย่อขนาด
     minimizeButton.Size = UDim2.new(0, 50, 0, 30)
@@ -73,45 +73,20 @@ local function createGUI()
     closeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
     closeButton.Parent = frame
 
-    -- ฟังก์ชันโหลด Void Garou
-    loadVoidButton.MouseButton1Click:Connect(function()
-        print("Loading Void Garou...")
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/yes1nt/yes/refs/heads/main/Void%20Reaper%20Obfuscated.txt"))()
-    end)
-
-    -- ฟังก์ชันโหลด Trash Can Man
-    loadTrashButton.MouseButton1Click:Connect(function()
-        print("Loading Trash Can Man...")
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/yes1nt/yes/refs/heads/main/Trashcan%20Man", true))()
-    end)
-
-    -- ฟังก์ชันโหลด Star Glitcher
-    loadStarGlitcherButton.MouseButton1Click:Connect(function()
-        print("Loading Star Glitcher...")
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/Reapvitalized/TSB/refs/heads/main/SG_DEMO.lua"))()
-    end)
-
-    -- ฟังก์ชันโหลด Sung Jin Woo
-    loadSungJinWooButton.MouseButton1Click:Connect(function()
-        print("Loading Sung Jin Woo...")
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/hamletirl/sunjingwoo/refs/heads/main/sunjingwoo"))()
-    end)
-
     -- ฟังก์ชันย่อขนาด
     local isMinimized = false
     minimizeButton.MouseButton1Click:Connect(function()
         isMinimized = not isMinimized
-        frame.Size = isMinimized and UDim2.new(0, 250, 0, 40) or UDim2.new(0, 250, 0, 290)
-        loadVoidButton.Visible = not isMinimized
-        loadTrashButton.Visible = not isMinimized
-        loadStarGlitcherButton.Visible = not isMinimized
-        loadSungJinWooButton.Visible = not isMinimized
+        frame.Size = isMinimized and UDim2.new(0, 250, 0, 40) or UDim2.new(0, 250, 0, 340)
+        for _, data in ipairs(buttons) do
+            data[1].Visible = not isMinimized
+        end
     end)
 
     -- ฟังก์ชันปิด GUI
     closeButton.MouseButton1Click:Connect(function()
         screenGui:Destroy()
-        spawnSmallButton() -- เรียกฟังก์ชันสร้างปุ่มวงกลมเล็ก
+        spawnSmallButton()
     end)
 end
 
@@ -127,8 +102,8 @@ function spawnSmallButton()
 
     -- ตั้งค่าปุ่มวงกลมเล็ก
     button.Size = UDim2.new(0, 50, 0, 50)
-    button.Position = UDim2.new(0, 10, 0, 10) -- ปรับให้ปุ่มวงกลมเล็กอยู่ใกล้ๆ กับมุมซ้ายบน
-    button.Text = "GUI" -- เปลี่ยนข้อความจาก "+" เป็น "GUI"
+    button.Position = UDim2.new(0, 10, 0, 10)
+    button.Text = "GUI"
     button.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
     button.TextColor3 = Color3.fromRGB(255, 255, 255)
     button.Font = Enum.Font.SourceSansBold
@@ -137,8 +112,8 @@ function spawnSmallButton()
 
     -- ฟังก์ชันการกดปุ่มเพื่อเปิด GUI อีกครั้ง
     button.MouseButton1Click:Connect(function()
-        createGUI()  -- สร้าง GUI ใหม่
-        smallGui:Destroy()  -- ลบปุ่มวงกลม
+        createGUI()
+        smallGui:Destroy()
     end)
 end
 
@@ -147,6 +122,6 @@ createGUI()
 
 -- ตรวจจับการเกิดใหม่ และสร้าง GUI ใหม่
 player.CharacterAdded:Connect(function()
-    wait(1) -- ให้เวลาโหลดตัวละคร
-    createGUI() -- สร้าง GUI ใหม่เมื่อเกิดใหม่
+    wait(1)
+    createGUI()
 end)
