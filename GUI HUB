@@ -1,5 +1,16 @@
 local player = game.Players.LocalPlayer
 
+-- ฟังก์ชันโหลดสคริปต์อย่างปลอดภัย
+local function safeLoad(url, name)
+    print("Loading " .. name .. "...")
+    local success, result = pcall(function()
+        return loadstring(game:HttpGet(url))()
+    end)
+    if not success then
+        warn("Failed to load " .. name .. ": " .. tostring(result))
+    end
+end
+
 -- ฟังก์ชันสร้าง GUI
 local function createGUI()
     -- ลบ GUI เดิมถ้ามีอยู่
@@ -11,53 +22,56 @@ local function createGUI()
     local screenGui = Instance.new("ScreenGui", player.PlayerGui)
     screenGui.Name = "CustomGUI"
     local frame = Instance.new("Frame", screenGui)
-    local loadVoidButton = Instance.new("TextButton", frame)
-    local loadTrashButton = Instance.new("TextButton", frame)
-    local loadStarGlitcherButton = Instance.new("TextButton", frame)
-    local loadSungJinWooButton = Instance.new("TextButton", frame)
-    local loadYujiButton = Instance.new("TextButton", frame) -- ปุ่ม Yuji Script ใหม่
+    local scrollFrame = Instance.new("ScrollingFrame", frame)
     local minimizeButton = Instance.new("TextButton", frame)
     local closeButton = Instance.new("TextButton", frame)
 
-    -- ตั้งค่า Frame (สีแดง)
-    frame.Size = UDim2.new(0, 250, 0, 340) -- ขยายขนาดเพื่อรองรับปุ่มใหม่
+    -- ตั้งค่า Frame
+    frame.Size = UDim2.new(0, 250, 0, 340)
     frame.Position = UDim2.new(0.5, -125, 0.35, 0)
     frame.BackgroundColor3 = Color3.fromRGB(170, 0, 0)
     frame.Active = true
     frame.Draggable = true
 
-    -- ตั้งค่าปุ่มโหลดต่างๆ
+    -- ตั้งค่า ScrollingFrame
+    scrollFrame.Size = UDim2.new(1, -10, 1, -50)
+    scrollFrame.Position = UDim2.new(0, 5, 0, 40)
+    scrollFrame.CanvasSize = UDim2.new(0, 0, 2, 0) -- ปรับขนาดตามจำนวนปุ่ม
+    scrollFrame.ScrollBarThickness = 5
+    scrollFrame.BackgroundColor3 = Color3.fromRGB(100, 0, 0)
+    scrollFrame.Parent = frame
+
+    -- ปุ่มโหลดสคริปต์
     local buttons = {
-        {loadVoidButton, "Load Void Garou", "https://raw.githubusercontent.com/yes1nt/yes/refs/heads/main/Void%20Reaper%20Obfuscated.txt"},
-        {loadTrashButton, "Load Trash Can Man", "https://raw.githubusercontent.com/yes1nt/yes/refs/heads/main/Trashcan%20Man"},
-        {loadStarGlitcherButton, "Star Glitcher", "https://raw.githubusercontent.com/Reapvitalized/TSB/refs/heads/main/SG_DEMO.lua"},
-        {loadSungJinWooButton, "Sung Jin Woo", "https://raw.githubusercontent.com/hamletirl/sunjingwoo/refs/heads/main/sunjingwoo"},
-        {loadYujiButton, "Yuji Script", "https://raw.githubusercontent.com/Kenjihin69/Kenjihin69/refs/heads/main/Sigma%20v2%20vessel%20tp"} -- Yuji Script
+        {"Load Void Garou", "https://raw.githubusercontent.com/yes1nt/yes/refs/heads/main/Void%20Reaper%20Obfuscated.txt"},
+        {"Load Trash Can Man", "https://raw.githubusercontent.com/yes1nt/yes/refs/heads/main/Trashcan%20Man"},
+        {"Star Glitcher", "https://raw.githubusercontent.com/Reapvitalized/TSB/refs/heads/main/SG_DEMO.lua"},
+        {"Sung Jin Woo", "https://raw.githubusercontent.com/hamletirl/sunjingwoo/refs/heads/main/sunjingwoo"},
+        {"Yuji Script", "https://raw.githubusercontent.com/Kenjihin69/Kenjihin69/refs/heads/main/Sigma%20v2%20vessel%20tp"},
+        {"KYRA KJ", "https://gist.githubusercontent.com/GoldenHeads2/5fe3178dff916f988d319c3bd5e4fc01/raw/b250ee6f967c4e84195a76ab7915fb1d79b53326/gistfile1.txt"} -- ปุ่มใหม่
     }
 
     for i, data in ipairs(buttons) do
-        local button, text, url = unpack(data)
+        local button = Instance.new("TextButton", scrollFrame)
         button.Size = UDim2.new(0, 200, 0, 40)
-        button.Position = UDim2.new(0.5, -100, 0.15 * i, 0)
-        button.Text = text
+        button.Position = UDim2.new(0.5, -100, 0, (i - 1) * 45)
+        button.Text = data[1]
         button.BackgroundColor3 = Color3.fromRGB(140, 0, 0)
         button.TextColor3 = Color3.fromRGB(255, 255, 255)
-        button.Parent = frame
+        
         button.MouseButton1Click:Connect(function()
-            print("Loading " .. text .. "...")
-            if text == "Yuji Script" then
-                -- โหลด Yuji Script พร้อมตัวแปร getgenv()
+            if data[1] == "Yuji Script" then
                 getgenv().secret = false
                 getgenv().Dance = true
                 getgenv().fog = true
                 getgenv().infinitedash = false
                 getgenv().night = false
             end
-            loadstring(game:HttpGet(url))()
+            safeLoad(data[2], data[1])
         end)
     end
 
-    -- ตั้งค่าปุ่มย่อขนาด
+    -- ปุ่มย่อขนาด
     minimizeButton.Size = UDim2.new(0, 50, 0, 30)
     minimizeButton.Position = UDim2.new(1, -60, 0, 5)
     minimizeButton.Text = "-"
@@ -65,7 +79,7 @@ local function createGUI()
     minimizeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
     minimizeButton.Parent = frame
 
-    -- ตั้งค่าปุ่มปิด
+    -- ปุ่มปิด
     closeButton.Size = UDim2.new(0, 50, 0, 30)
     closeButton.Position = UDim2.new(1, -110, 0, 5)
     closeButton.Text = "X"
@@ -73,14 +87,12 @@ local function createGUI()
     closeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
     closeButton.Parent = frame
 
-    -- ฟังก์ชันย่อขนาด
+    -- ฟังก์ชันย่อ GUI
     local isMinimized = false
     minimizeButton.MouseButton1Click:Connect(function()
         isMinimized = not isMinimized
         frame.Size = isMinimized and UDim2.new(0, 250, 0, 40) or UDim2.new(0, 250, 0, 340)
-        for _, data in ipairs(buttons) do
-            data[1].Visible = not isMinimized
-        end
+        scrollFrame.Visible = not isMinimized
     end)
 
     -- ฟังก์ชันปิด GUI
@@ -109,8 +121,10 @@ function spawnSmallButton()
     button.Font = Enum.Font.SourceSansBold
     button.TextSize = 30
     button.Parent = smallGui
+    button.Active = true
+    button.Draggable = true -- ทำให้ลากปุ่มได้
 
-    -- ฟังก์ชันการกดปุ่มเพื่อเปิด GUI อีกครั้ง
+    -- กดปุ่มเพื่อเปิด GUI อีกครั้ง
     button.MouseButton1Click:Connect(function()
         createGUI()
         smallGui:Destroy()
@@ -120,7 +134,7 @@ end
 -- เรียกใช้ฟังก์ชันสร้าง GUI
 createGUI()
 
--- ตรวจจับการเกิดใหม่ และสร้าง GUI ใหม่
+-- ตรวจจับการเกิดใหม่
 player.CharacterAdded:Connect(function()
     wait(1)
     createGUI()
