@@ -36,7 +36,7 @@ local function createGUI()
     -- ตั้งค่า ScrollingFrame
     scrollFrame.Size = UDim2.new(1, -10, 1, -50)
     scrollFrame.Position = UDim2.new(0, 5, 0, 40)
-    scrollFrame.CanvasSize = UDim2.new(0, 0, 2, 0) -- ปรับขนาดตามจำนวนปุ่ม
+    scrollFrame.CanvasSize = UDim2.new(0, 0, 2.2, 0) -- ปรับขนาดเพิ่มขึ้นสำหรับปุ่มใหม่
     scrollFrame.ScrollBarThickness = 5
     scrollFrame.BackgroundColor3 = Color3.fromRGB(100, 0, 0)
     scrollFrame.Parent = frame
@@ -48,7 +48,8 @@ local function createGUI()
         {"Star Glitcher", "https://raw.githubusercontent.com/Reapvitalized/TSB/refs/heads/main/SG_DEMO.lua"},
         {"Sung Jin Woo", "https://raw.githubusercontent.com/hamletirl/sunjingwoo/refs/heads/main/sunjingwoo"},
         {"Yuji Script", "https://raw.githubusercontent.com/Kenjihin69/Kenjihin69/refs/heads/main/Sigma%20v2%20vessel%20tp"},
-        {"KYRA KJ", "https://gist.githubusercontent.com/GoldenHeads2/5fe3178dff916f988d319c3bd5e4fc01/raw/b250ee6f967c4e84195a76ab7915fb1d79b53326/gistfile1.txt"} -- ปุ่มใหม่
+        {"KYRA KJ", "https://gist.githubusercontent.com/GoldenHeads2/5fe3178dff916f988d319c3bd5e4fc01/raw/b250ee6f967c4e84195a76ab7915fb1d79b53326/gistfile1.txt"},
+        {"Gojo", "https://raw.githubusercontent.com/damir512/jjsgojov3/main/SaitamaToGojoV3_SOURCE-obfuscated_2.txt"} -- ปุ่ม Gojo
     }
 
     for i, data in ipairs(buttons) do
