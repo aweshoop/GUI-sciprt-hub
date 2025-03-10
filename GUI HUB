@@ -27,16 +27,16 @@ local function createGUI()
     local closeButton = Instance.new("TextButton", frame)
 
     -- ตั้งค่า Frame
-    frame.Size = UDim2.new(0, 200, 0, 250)  -- ทำให้ขนาดเล็กลง
-    frame.Position = UDim2.new(0.5, -100, 0.35, 0)  -- ปรับตำแหน่ง
+    frame.Size = UDim2.new(0, 200, 0, 250)  
+    frame.Position = UDim2.new(0.5, -100, 0.35, 0)  
     frame.BackgroundColor3 = Color3.fromRGB(170, 0, 0)
     frame.Active = true
     frame.Draggable = true
 
     -- ตั้งค่า ScrollingFrame
-    scrollFrame.Size = UDim2.new(1, -10, 1, -40)  -- ปรับขนาด
+    scrollFrame.Size = UDim2.new(1, -10, 1, -40)  
     scrollFrame.Position = UDim2.new(0, 5, 0, 40)
-    scrollFrame.CanvasSize = UDim2.new(0, 0, 2, 0)  -- ปรับขนาด
+    scrollFrame.CanvasSize = UDim2.new(0, 0, 2, 0)  
     scrollFrame.ScrollBarThickness = 5
     scrollFrame.BackgroundColor3 = Color3.fromRGB(100, 0, 0)
     scrollFrame.Parent = frame
@@ -49,12 +49,13 @@ local function createGUI()
         {"Sung Jin Woo", "https://raw.githubusercontent.com/hamletirl/sunjingwoo/refs/heads/main/sunjingwoo"},
         {"Yuji Script", "https://raw.githubusercontent.com/Kenjihin69/Kenjihin69/refs/heads/main/Sigma%20v2%20vessel%20tp"},
         {"KYRA KJ", "https://gist.githubusercontent.com/GoldenHeads2/5fe3178dff916f988d319c3bd5e4fc01/raw/b250ee6f967c4e84195a76ab7915fb1d79b53326/gistfile1.txt"},
-        {"Gojo", "https://raw.githubusercontent.com/damir512/jjsgojov3/main/SaitamaToGojoV3_SOURCE-obfuscated_2.txt"}
+        {"Gojo", "https://raw.githubusercontent.com/damir512/jjsgojov3/main/SaitamaToGojoV3_SOURCE-obfuscated_2.txt"},
+        {"1x1×1×1", "https://gist.githubusercontent.com/GoldenHeads2/900e87ffc32f3c740930ccb106dd6abf/raw/358c5bf0f0a6aa25946718288dab006e3ae7e1d4/gistfile1.txt"} 
     }
 
     for i, data in ipairs(buttons) do
         local button = Instance.new("TextButton", scrollFrame)
-        button.Size = UDim2.new(0, 180, 0, 30)  -- ปรับขนาดปุ่มให้เล็กลง
+        button.Size = UDim2.new(0, 180, 0, 30)  
         button.Position = UDim2.new(0.5, -90, 0, (i - 1) * 35)
         button.Text = data[1]
         button.BackgroundColor3 = Color3.fromRGB(140, 0, 0)
@@ -73,7 +74,7 @@ local function createGUI()
     end
 
     -- ปุ่มย่อขนาด
-    minimizeButton.Size = UDim2.new(0, 40, 0, 25)  -- ปรับขนาดปุ่มย่อ
+    minimizeButton.Size = UDim2.new(0, 40, 0, 25)  
     minimizeButton.Position = UDim2.new(1, -50, 0, 5)
     minimizeButton.Text = "-"
     minimizeButton.BackgroundColor3 = Color3.fromRGB(120, 0, 0)
@@ -81,7 +82,7 @@ local function createGUI()
     minimizeButton.Parent = frame
 
     -- ปุ่มปิด
-    closeButton.Size = UDim2.new(0, 40, 0, 25)  -- ปรับขนาดปุ่มปิด
+    closeButton.Size = UDim2.new(0, 40, 0, 25)  
     closeButton.Position = UDim2.new(1, -90, 0, 5)
     closeButton.Text = "X"
     closeButton.BackgroundColor3 = Color3.fromRGB(200, 0, 0)
@@ -114,7 +115,7 @@ function spawnSmallButton()
     local button = Instance.new("TextButton", smallGui)
 
     -- ตั้งค่าปุ่มวงกลมเล็ก
-    button.Size = UDim2.new(0, 40, 0, 40)  -- ขนาดเล็กลง
+    button.Size = UDim2.new(0, 40, 0, 40)  
     button.Position = UDim2.new(0, 10, 0, 10)
     button.Text = "GUI"
     button.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
@@ -123,7 +124,7 @@ function spawnSmallButton()
     button.TextSize = 20
     button.Parent = smallGui
     button.Active = true
-    button.Draggable = true -- ทำให้ลากปุ่มได้
+    button.Draggable = true 
 
     -- กดปุ่มเพื่อเปิด GUI อีกครั้ง
     button.MouseButton1Click:Connect(function()
